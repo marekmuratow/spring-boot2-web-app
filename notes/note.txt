@@ -14,3 +14,6 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-in
 
 # show history
 SELECT * FROM "flyway_schema_history"
+
+Live reload extension with devtools
+Json view extension
