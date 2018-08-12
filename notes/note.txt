@@ -17,3 +17,5 @@ SELECT * FROM "flyway_schema_history"
 
 Live reload extension with devtools
 Json view extension
+
+spring-boot-configuration-processor enables auto completion in application.properties file
