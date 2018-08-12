@@ -1,0 +1,13 @@
+#Run from cmd line
+$ curl -s http://localhost:8080
+#Response
+{"timestamp":"2018-08-12T10:16:08.488+0000","status":404,"error":"Not Found","message":"No message available","path":"/"}
+
+devtools add h2_console
+http://localhost:8080/h2-console
+!! in h2_console change JDBC_URL to jdbc:h2:mem:testdb
+
+H2
+Q : How did the insert query from data.sql run at application startup?
+That’s part of the Spring Boot startup routine. Any queries in data.sql are run at application startup. You can read more here.
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
