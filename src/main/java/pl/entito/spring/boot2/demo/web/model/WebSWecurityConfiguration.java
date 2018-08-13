@@ -29,6 +29,9 @@ public class WebSWecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.hasRole("ADMIN").antMatchers("/").hasRole("USER")
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().antMatchers("/**")
 				.permitAll().and().httpBasic();
+		
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 	}
 
 }
