@@ -31,6 +31,12 @@ public class BookController {
 		model.addAttribute("entries", fetchBooks());
 		return "allBooks";
 	}
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		model.addAttribute("entries", fetchBooks());
+		return "admin";
+	}
 
 	@GetMapping("/books")
 	@ResponseBody // to return books as JSON
