@@ -37,7 +37,8 @@ public class BookController {
 
 	@GetMapping("/admin")
 	public String admin(Model model) {
-		model.addAttribute("book", new Book());
+		model.addAttribute("book", new Book("Ksiazka", "Contoller"));
+		model.addAttribute("id", -1);
 		model.addAttribute("entries", fetchBooks());
 		return "admin";
 	}
@@ -45,7 +46,17 @@ public class BookController {
 	@PostMapping("/addBook")
 	public String addBook(@ModelAttribute("book") Book book, BindingResult result, Model model) {
 		repository.save(book);
-		return allBooks(model);
+		model.addAttribute("entries", fetchBooks());
+		return "admin";
+	}
+
+	@PostMapping("/deleteBook/{id}")
+	public String deleteBook(@PathVariable long id, Model model) {
+		repository.deleteById(id);
+		model.addAttribute("entries", fetchBooks());
+		model.addAttribute("book", new Book());
+
+		return "admin";
 	}
 
 	@GetMapping("/books")

@@ -23,28 +23,31 @@
 			</div>
 		</section>
 		<section class="section">
-			<form>
-				<div data-th-each="entry : ${entries}"
-					class="field is-horizontal is-grouped">
-					<div class="field-body">
-						<div class="field">
-							<p class="control is-expanded">
-								<input class="input" type="text" data-th-value="${entry.title}"
-									disabled>
-							</p>
-						</div>
-						<div class="field">
-							<p class="control is-expanded">
-								<input class="input" type="text"
-									data-th-value="${entry.description}" disabled>
-							</p>
-						</div>
-						<div class="control">
-							<button class="button is-danger">Delete</button>
-						</div>
+			<div data-th-each="book : ${entries}"
+				class="field is-horizontal is-grouped">
+
+				<div class="field-body">
+					<div class="field">
+						<p class="control is-expanded">
+							<input class="input" type="text" data-th-value="${book.title}"
+								disabled>
+						</p>
+					</div>
+					<div class="field">
+						<p class="control is-expanded">
+							<input class="input" type="text"
+								data-th-value="${book.description}" disabled>
+						</p>
+					</div>
+					<div class="control">
+						<form action="#" th:action="@{/deleteBook/} + ${book.id}"
+							method="post">
+							<button type="submit" value="Submit" class="button is-danger">Delete</button>
+						</form>
 					</div>
 				</div>
-			</form>
+
+			</div>
 		</section>
 		<section class="section">
 			<h2 class="title">Add a new book</h2>
