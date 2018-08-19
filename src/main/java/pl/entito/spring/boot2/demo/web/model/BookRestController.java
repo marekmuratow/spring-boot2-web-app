@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController // @Controller + @ResponseBody // to return books as JSON
 public class BookRestController {
 
 	final private BookRepository repository;
@@ -19,7 +18,6 @@ public class BookRestController {
 	}
 
 	@GetMapping("/books")
-	@ResponseBody // to return books as JSON
 	private List<Book> fetchBooks() {
 		Iterable<Book> books = repository.findAll();
 		List<Book> bookWrapper = new ArrayList<>();
@@ -29,7 +27,6 @@ public class BookRestController {
 	}
 
 	@GetMapping("/book/{id}")
-	@ResponseBody // to return books as JSON
 	private Book fetchBook(@PathVariable long id) {
 		Optional<Book> book = repository.findById(id);
 
