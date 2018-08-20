@@ -32,6 +32,29 @@ public class BookController {
 	@PostMapping("/addBook")
 	public String addBook(@ModelAttribute("book") Book book, Model model) {
 		repository.save(book);
+
+		model.addAttribute("book", new Book());
+		model.addAttribute("entries", fetchBooks());
+		return "admin";
+	}
+
+	@PostMapping("/editBook/{id}")
+	public String editBook(@PathVariable long id, Model model) {
+
+		Book book = repository.findById(id).orElse(new Book("Empty", "Book"));
+		model.addAttribute("id", id);
+		model.addAttribute("book", book);
+		return "editBook";
+	}
+
+	@PostMapping("/saveBook")
+	public String saveBook(@ModelAttribute("book") Book book, @ModelAttribute("id") Long id, Model model) {
+
+		Book repoBook = repository.findById(id).orElse(new Book("Empty", "Book"));
+		repoBook.setTitle(book.getTitle());
+		repoBook.setDescription(book.getDescription());
+
+		repository.save(repoBook);
 		model.addAttribute("book", new Book());
 		model.addAttribute("entries", fetchBooks());
 		return "admin";

@@ -17,52 +17,24 @@
 			<div class="hero-body">
 				<div class="container">
 					<h1 class="title">
-						<i class="fa fa-book" aria-hidden="true"></i>&nbsp;Book Admin
+						<i class="fa fa-book" aria-hidden="true"></i>&nbsp;Book edit
 					</h1>
 				</div>
 			</div>
 		</section>
-		<section class="section">
-			<div data-th-each="book : ${entries}"
-				class="field is-horizontal is-grouped">
 
-				<div class="field-body">
-					<div class="field">
-						<p class="control is-expanded">
-							<input class="input" type="text" data-th-value="${book.title}"
-								disabled>
-						</p>
-					</div>
-					<div class="field">
-						<p class="control is-expanded">
-							<input class="input" type="text"
-								data-th-value="${book.description}" disabled>
-						</p>
-					</div>
-
-					<div class="control">
-						<form action="#" th:action="@{/editBook/} + ${book.id}"
-							method="post">
-							<button type="submit" value="Submit" class="button is-danger">Edit</button>
-						</form>
-					</div>
-
-					<div class="control">
-						<form action="#" th:action="@{/deleteBook/} + ${book.id}"
-							method="post">
-							<button type="submit" value="Submit" class="button is-danger">Delete</button>
-						</form>
-					</div>
-				</div>
-
-			</div>
-		</section>
 		<section class="section">
 			<h2 class="title">Add a new book</h2>
-			<form action="#" th:action="@{/addBook}" th:object="${book}"
+			<form action="#" th:action="@{/saveBook}" th:object="${book}"
 				method="post">
 				<div class="field is-horizontal is-grouped">
 					<div class="field-body">
+						<div class="field">
+							<p class="control is-expanded">
+								<input class="input" type="text" th:field="*{id}"
+									placeholder="Book id">
+							</p>
+						</div>
 						<div class="field">
 							<p class="control is-expanded">
 								<input class="input" type="text" th:field="*{title}"
@@ -76,7 +48,7 @@
 							</p>
 						</div>
 						<div class="control">
-							<button class="button is-primary">Add</button>
+							<button class="button is-primary">Save</button>
 						</div>
 					</div>
 				</div>
