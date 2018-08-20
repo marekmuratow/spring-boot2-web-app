@@ -38,7 +38,7 @@ public class WebSWecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.requestMatchers(EndpointRequest.toAnyEndpoint()).hasAnyRole("ACTUATOR").antMatchers("/admin")
 				.hasRole("ADMIN").antMatchers("/").hasRole("USER")
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().antMatchers("/**")
-				.permitAll().and().httpBasic();
+				.permitAll().and().formLogin().and().logout();
 
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
