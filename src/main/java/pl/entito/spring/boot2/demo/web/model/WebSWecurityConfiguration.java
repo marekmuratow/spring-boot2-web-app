@@ -7,17 +7,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 public class WebSWecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	String userPass = "$2a$10$7bN0bMn.ANI9q7uvKOtd1eWI7dziXgRJT/VjoDIcc1l6vDV28WbQ2";
+	String adminPass = "$2a$10$RVOBQPLFrFsE3mYbk0PFT.zFzC263iCrIJZ3InQubTMlgu.BSmy7a";
+
 	@Bean
-	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-		return new InMemoryUserDetailsManager(
-				User.withDefaultPasswordEncoder().username("user").password("pass").authorities("ROLE_USER").build(),
-				User.withDefaultPasswordEncoder().username("admin").password("admin")
-						.authorities("ROLE_ACTUATOR", "ROLE_ADMIN", "ROLE_USER").build());
+	BCryptPasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public UserDetailsService userDetailsService() {
+		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+		manager.createUser(User.withUsername("user").password(userPass).roles("USER").build());
+		manager.createUser(User.withUsername("admin").password(adminPass).roles("ADMIN", "USER", "ACTUATOR").build());
+		return manager;
 	}
 
 	@Override
@@ -29,7 +39,7 @@ public class WebSWecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.hasRole("ADMIN").antMatchers("/").hasRole("USER")
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().antMatchers("/**")
 				.permitAll().and().httpBasic();
-		
+
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 	}
