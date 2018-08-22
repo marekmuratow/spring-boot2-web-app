@@ -1,12 +1,17 @@
 package pl.entito.spring.boot2.demo.web.model;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController // @Controller + @ResponseBody // to return books as JSON
 public class BookRestController {
@@ -31,6 +36,20 @@ public class BookRestController {
 		Optional<Book> book = repository.findById(id);
 
 		return book.orElse(new Book("Book", "Not found")); // TODO redirect to error page
+	}
+
+	@PostMapping("/addbookLocation")
+	private ResponseEntity<Book> addBookLocation(@RequestBody Book book) {
+		Book created = repository.save(book);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("book").path("/{id}")
+				.buildAndExpand(created.getId()).toUri();
+		return ResponseEntity.created(location).build();
+	}
+
+	@PostMapping("/addbookEntity")
+	private ResponseEntity<Book> addBookEntity(@RequestBody Book book) {
+		Book created = repository.save(book);
+		return ResponseEntity.ok(created);
 	}
 
 }
