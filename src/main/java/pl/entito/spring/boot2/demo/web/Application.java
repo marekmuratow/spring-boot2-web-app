@@ -8,9 +8,9 @@ import pl.entito.spring.boot2.demo.web.model.BookProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(BookProperties.class)
-public class SpringBootWebDemoApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootWebDemoApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pl.entito</groupId>
-	<artifactId>SpringBootWebDemo</artifactId>
+	<artifactId>spring-boot2-web-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
